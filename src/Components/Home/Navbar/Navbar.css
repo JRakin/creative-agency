@@ -1,0 +1,17 @@
+.btn-brand {
+  padding: 5px 36px;
+  background-color: #111430;
+  color: #fff;
+}
+.btn-brand:hover {
+  color: #fff;
+  background-color: #35384d;
+}
+.nav-item .nav-link {
+  color: #111430;
+  transition: 0.3s;
+}
+.nav-item .nav-link:hover {
+  font-weight: 600;
+  color: #35384d;
+}

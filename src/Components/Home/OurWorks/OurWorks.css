@@ -1,0 +1,22 @@
+.slick-prev {
+  left: 1% !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 1% !important;
+  z-index: 1;
+}
+.slick-next::before {
+  color: #9dc685;
+}
+.slick-prev::before {
+  color: #9dc685;
+}
+.container-slide {
+  background-color: #111430;
+  padding: 120px 0;
+}
+.slick-dots li button::before {
+  color: #9dc685;
+  font-size: 10px;
+}
