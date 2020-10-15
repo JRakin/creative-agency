@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import jwt_decode from 'jwt-decode';
 import UserServiceCard from '../UserServiceCard/UserServiceCard';
+import preLoader from '../../../images/logos/loader.gif';
 
 const UserServiceList = () => {
   const [services, setServices] = useState([]);
@@ -19,9 +20,18 @@ const UserServiceList = () => {
   }, [email]);
   return (
     <div className="order-form row p-5">
-      {services.map((service) => (
-        <UserServiceCard key={service._id} service={service}></UserServiceCard>
-      ))}
+      {!services.length ? (
+        <div className="mx-auto">
+          <img src={preLoader} alt="" />
+        </div>
+      ) : (
+        services.map((service) => (
+          <UserServiceCard
+            key={service._id}
+            service={service}
+          ></UserServiceCard>
+        ))
+      )}
     </div>
   );
 };

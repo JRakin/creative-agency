@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import preLoader from '../../../images/logos/loader.gif';
 
 const AdminServiceList = () => {
   const [allList, setAllList] = useState([]);
@@ -23,7 +24,15 @@ const AdminServiceList = () => {
             <th>Status</th>
           </tr>
         </thead>
-        <tbody>{allList.map((list) => renderTableData(list))}</tbody>
+        <tbody>
+          {!allList.length ? (
+            <div className="mx-auto">
+              <img src={preLoader} alt="" />
+            </div>
+          ) : (
+            allList.map((list) => renderTableData(list))
+          )}
+        </tbody>
       </table>
     </div>
   );
