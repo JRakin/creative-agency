@@ -1,9 +1,21 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 const MakeAdmin = () => {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data, e) => {
+    fetch('https://aqueous-reef-82491.herokuapp.com/makeAnAdmin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    }).then((result) => {
+      e.target.reset();
+      Swal.fire('Congrats', 'Admin added successfully!', 'success');
+    });
+  };
   return (
     <div className="order-form p-5">
       <form onSubmit={handleSubmit(onSubmit)}>

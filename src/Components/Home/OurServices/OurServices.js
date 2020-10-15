@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ServiceCard from '../ServiceCard/ServiceCard';
+import preLoader from '../../../images/logos/loader.gif';
 
 const OurServices = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
     let isMounted = true;
-    fetch('http://localhost:4000/getAllServices')
+    fetch('https://aqueous-reef-82491.herokuapp.com/getAllServices')
       .then((res) => res.json())
       .then((data) => {
         if (isMounted) {
@@ -28,9 +29,15 @@ const OurServices = () => {
           Provide Awesome <span style={{ color: '#9DC685' }}>Services</span>
         </h2>
         <div className="row my-5">
-          {services.map((service) => (
-            <ServiceCard key={service._id} service={service}></ServiceCard>
-          ))}
+          {!services.length ? (
+            <div className="text-center mx-auto">
+              <img src={preLoader} alt="" />
+            </div>
+          ) : (
+            services.map((service) => (
+              <ServiceCard key={service._id} service={service}></ServiceCard>
+            ))
+          )}
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ const OrderForm = () => {
   const onSubmit = (data, e) => {
     const newData = { ...data, status: 'pending', image: service.image };
 
-    fetch('http://localhost:4000/addOrder', {
+    fetch('https://aqueous-reef-82491.herokuapp.com/addOrder', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

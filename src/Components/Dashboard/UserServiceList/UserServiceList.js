@@ -9,7 +9,9 @@ const UserServiceList = () => {
   const email = user.email;
 
   useEffect(() => {
-    fetch('http://localhost:4000/getAllUserServices/' + email)
+    fetch(
+      'https://aqueous-reef-82491.herokuapp.com/getAllUserServices/' + email
+    )
       .then((res) => res.json())
       .then((data) => {
         setServices(data);

@@ -21,7 +21,7 @@ const ReviewForm = () => {
       photo: getPhoto(),
     };
 
-    fetch('http://localhost:4000/addReview', {
+    fetch('https://aqueous-reef-82491.herokuapp.com/addReview', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

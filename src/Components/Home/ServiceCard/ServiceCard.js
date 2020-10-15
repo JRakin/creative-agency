@@ -21,7 +21,7 @@ const ServiceCard = ({ service }) => {
   const history = useHistory();
 
   const handleOrder = (id) => {
-    fetch('http://localhost:4000/getService/' + id)
+    fetch('https://aqueous-reef-82491.herokuapp.com/getService/' + id)
       .then((res) => res.json())
       .then((data) => {
         history.push({

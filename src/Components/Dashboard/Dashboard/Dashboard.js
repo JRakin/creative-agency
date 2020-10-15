@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../../images/logos/logo.png';
 import './Dashboard.css';
@@ -15,32 +15,50 @@ import ReviewForm from '../ReviewForm/ReviewForm';
 import AddService from '../AddService/AddService';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import UserServiceList from '../UserServiceList/UserServiceList';
+import jwt_decode from 'jwt-decode';
+import AdminServiceList from '../AdminServiceList/AdminServiceList';
 
 const Dashboard = () => {
-  const [selectActive, setSelectActive] = useState('Order');
+  const user = jwt_decode(sessionStorage.getItem('token'));
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    fetch('https://aqueous-reef-82491.herokuapp.com/isAdmin', {
+      method: 'POST',
+      body: JSON.stringify(user.email),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setIsAdmin(data);
+      });
+  }, [user.email]);
+
+  const [selectActiveUser, setSelectActiveUser] = useState('Order');
+  const [selectActiveAdmin, setSelectActiveAdmin] = useState('AllList');
 
   const handleOrder = () => {
-    setSelectActive('Order');
+    setSelectActiveUser('Order');
   };
 
   const handleLoadList = () => {
-    setSelectActive('List');
+    setSelectActiveUser('List');
   };
 
   const handleReview = () => {
-    setSelectActive('Review');
+    setSelectActiveUser('Review');
   };
 
   const showAllList = () => {
-    setSelectActive('AllList');
+    setSelectActiveAdmin('AllList');
   };
 
   const handleAddService = () => {
-    setSelectActive('AddService');
+    setSelectActiveAdmin('AddService');
   };
 
   const handleMakeAdmin = () => {
-    setSelectActive('MakeAdmin');
+    setSelectActiveAdmin('MakeAdmin');
   };
 
   return (
@@ -51,93 +69,98 @@ const Dashboard = () => {
             <Link className="py-4" to="/">
               <img className="w-50" src={Logo} alt="" />
             </Link>
-            <div className="py-5">
-              <p className="mb-0">
-                <button
-                  onClick={handleOrder}
-                  className={
-                    selectActive === 'Order'
-                      ? 'btn btn-option active-btn'
-                      : 'btn btn-option'
-                  }
-                >
-                  {' '}
-                  <FontAwesomeIcon className="mr-2" icon={faShoppingCart} />
-                  Order
-                </button>
-              </p>
-              <p className="mb-0">
-                <button
-                  onClick={handleLoadList}
-                  className={
-                    selectActive === 'List'
-                      ? 'btn btn-option active-btn'
-                      : 'btn btn-option'
-                  }
-                >
-                  <FontAwesomeIcon className="mr-2" icon={faListAlt} />
-                  Service List
-                </button>
-              </p>
-              <p className="mb-0">
-                <button
-                  onClick={handleReview}
-                  className={
-                    selectActive === 'Review'
-                      ? 'btn btn-option active-btn'
-                      : 'btn btn-option'
-                  }
-                >
-                  <FontAwesomeIcon className="mr-2" icon={faCommentAlt} />
-                  Review
-                </button>
-              </p>
-            </div>
-            <div className="py-5">
-              <p className="mb-0">
-                <button
-                  onClick={showAllList}
-                  className={
-                    selectActive === 'AllList'
-                      ? 'btn btn-option active-btn'
-                      : 'btn btn-option'
-                  }
-                >
-                  <FontAwesomeIcon className="mr-2" icon={faListAlt} />
-                  Service List
-                </button>
-              </p>
-              <p className="mb-0">
-                <button
-                  onClick={handleAddService}
-                  className={
-                    selectActive === 'AddService'
-                      ? 'btn btn-option active-btn'
-                      : 'btn btn-option'
-                  }
-                >
-                  {' '}
-                  <FontAwesomeIcon className="mr-2" icon={faPlus} />
-                  Add Service
-                </button>
-              </p>
-              <p className="mb-0">
-                <button
-                  onClick={handleMakeAdmin}
-                  className={
-                    selectActive === 'MakeAdmin'
-                      ? 'btn btn-option active-btn'
-                      : 'btn btn-option'
-                  }
-                >
-                  <FontAwesomeIcon className="mr-2" icon={faUserPlus} />
-                  Make An Admin
-                </button>
-              </p>
-            </div>
+            {!isAdmin ? (
+              <div className="py-5">
+                <p className="mb-0">
+                  <button
+                    onClick={handleOrder}
+                    className={
+                      selectActiveUser === 'Order'
+                        ? 'btn btn-option active-btn'
+                        : 'btn btn-option'
+                    }
+                  >
+                    {' '}
+                    <FontAwesomeIcon className="mr-2" icon={faShoppingCart} />
+                    Order
+                  </button>
+                </p>
+                <p className="mb-0">
+                  <button
+                    onClick={handleLoadList}
+                    className={
+                      selectActiveUser === 'List'
+                        ? 'btn btn-option active-btn'
+                        : 'btn btn-option'
+                    }
+                  >
+                    <FontAwesomeIcon className="mr-2" icon={faListAlt} />
+                    Service List
+                  </button>
+                </p>
+                <p className="mb-0">
+                  <button
+                    onClick={handleReview}
+                    className={
+                      selectActiveUser === 'Review'
+                        ? 'btn btn-option active-btn'
+                        : 'btn btn-option'
+                    }
+                  >
+                    <FontAwesomeIcon className="mr-2" icon={faCommentAlt} />
+                    Review
+                  </button>
+                </p>
+              </div>
+            ) : (
+              <div className="py-5">
+                <p className="mb-0">
+                  <button
+                    onClick={showAllList}
+                    className={
+                      selectActiveAdmin === 'AllList'
+                        ? 'btn btn-option active-btn'
+                        : 'btn btn-option'
+                    }
+                  >
+                    <FontAwesomeIcon className="mr-2" icon={faListAlt} />
+                    Service List
+                  </button>
+                </p>
+                <p className="mb-0">
+                  <button
+                    onClick={handleAddService}
+                    className={
+                      selectActiveAdmin === 'AddService'
+                        ? 'btn btn-option active-btn'
+                        : 'btn btn-option'
+                    }
+                  >
+                    {' '}
+                    <FontAwesomeIcon className="mr-2" icon={faPlus} />
+                    Add Service
+                  </button>
+                </p>
+                <p className="mb-0">
+                  <button
+                    onClick={handleMakeAdmin}
+                    className={
+                      selectActiveAdmin === 'MakeAdmin'
+                        ? 'btn btn-option active-btn'
+                        : 'btn btn-option'
+                    }
+                  >
+                    <FontAwesomeIcon className="mr-2" icon={faUserPlus} />
+                    Make An Admin
+                  </button>
+                </p>
+              </div>
+            )}
           </div>
           <div className="col-md-9 mt-5 show-activities">
-            {showActive(selectActive)}
+            {!isAdmin
+              ? showActiveUser(selectActiveUser)
+              : showActiveAdmin(selectActiveAdmin)}
           </div>
         </div>
       </div>
@@ -145,13 +168,19 @@ const Dashboard = () => {
   );
 };
 
-function showActive(active) {
+function showActiveUser(active) {
   if (active === 'Order') {
     return <OrderForm></OrderForm>;
   } else if (active === 'List') {
     return <UserServiceList></UserServiceList>;
   } else if (active === 'Review') {
     return <ReviewForm></ReviewForm>;
+  }
+}
+
+function showActiveAdmin(active) {
+  if (active === 'AllList') {
+    return <AdminServiceList></AdminServiceList>;
   } else if (active === 'AddService') {
     return <AddService></AddService>;
   } else if (active === 'MakeAdmin') {

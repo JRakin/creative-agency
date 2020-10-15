@@ -11,7 +11,7 @@ const AddService = () => {
     formData.append('name', data.name);
     formData.append('description', data.description);
 
-    fetch('http://localhost:4000/addService', {
+    fetch('https://aqueous-reef-82491.herokuapp.com/addService', {
       method: 'POST',
       body: formData,
     })

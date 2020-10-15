@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 import Logo from '../../../images/logos/logo.png';
@@ -6,9 +6,19 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import Swal from 'sweetalert2';
 import { UserContext } from '../../../App';
+import jwt_decode from 'jwt-decode';
 
 const Navbar = () => {
+  const [activeUser, setActiveUser] = useState({});
+
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+  useEffect(() => {
+    if (sessionStorage.length) {
+      const user = jwt_decode(sessionStorage.getItem('token'));
+      setActiveUser(user);
+    }
+  }, []);
 
   const handleSignOut = () => {
     // console.log('hit');
@@ -17,6 +27,7 @@ const Navbar = () => {
       .signOut()
       .then(() => {
         setLoggedInUser({});
+        setActiveUser({});
         sessionStorage.removeItem('token');
       })
       .catch((err) => {
@@ -41,7 +52,7 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item active">
               <Link className="nav-link mr-3" to="/">
@@ -49,8 +60,8 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link mr-3" to="/portfolio">
-                Our Portfolio
+              <Link className="nav-link mr-3" to="/dashboard">
+                Dashboard
               </Link>
             </li>
             <li className="nav-item">
@@ -64,7 +75,7 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              {!loggedInUser.email ? (
+              {!activeUser.email && !activeUser.user_id ? (
                 <Link to="/login">
                   <button className="btn btn-brand">Login</button>
                 </Link>
