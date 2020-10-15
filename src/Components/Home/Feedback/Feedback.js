@@ -1,34 +1,17 @@
-import React from 'react';
-import customer1 from '../../../images/customer-1.png';
+import React, { useEffect, useState } from 'react';
 import FeedbackCard from '../FeedbackCard/FeedbackCard';
 
 const Feedback = () => {
-  const feedbackData = [
-    {
-      id: '1',
-      name: 'Nash Patrick',
-      designation: 'CEO, Manpal',
-      review:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit, pariatur.',
-      image: customer1,
-    },
-    {
-      id: '2',
-      name: 'Nash Patrick',
-      designation: 'CEO, Manpal',
-      review:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit, pariatur.',
-      image: customer1,
-    },
-    {
-      id: '3',
-      name: 'Nash Patrick',
-      designation: 'CEO, Manpal',
-      review:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit, pariatur.',
-      image: customer1,
-    },
-  ];
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/getAllReview')
+      .then((res) => res.json())
+      .then((data) => {
+        setReviews(data);
+      });
+  }, []);
+
   return (
     <section className="my-5">
       <h2
@@ -39,8 +22,8 @@ const Feedback = () => {
       </h2>
       <div className="container py-5">
         <div className="row">
-          {feedbackData.map((feedback) => (
-            <FeedbackCard key={feedback.id} feedback={feedback}></FeedbackCard>
+          {reviews.map((feedback) => (
+            <FeedbackCard key={feedback._id} feedback={feedback}></FeedbackCard>
           ))}
         </div>
       </div>

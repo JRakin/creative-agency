@@ -1,0 +1,16 @@
+.show-activities {
+  background-color: aliceblue;
+  height: 80%;
+}
+.active-btn {
+  color: #96b883;
+}
+.active-btn:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+.btn-option:hover,
+.btn-option:focus {
+  color: #96b883;
+}

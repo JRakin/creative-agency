@@ -1,0 +1,43 @@
+.order-form form {
+  max-width: 500px;
+  padding: 50px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+}
+.btn-send {
+  background-color: #111430;
+  color: #fff;
+  padding: 8px 30px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
+.btn-send:hover {
+  background-color: #3a3d58;
+}
+.warning {
+  color: red;
+}
+input[type='file'] {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+input[type='file'] + label {
+  background: #e7fdda;
+  border: 1px solid green;
+  border-radius: 5px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  font-size: inherit;
+  font-weight: 500;
+  outline: none;
+  margin: 0;
+  padding: 6px 30px;
+  position: relative;
+}

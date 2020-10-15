@@ -1,31 +1,22 @@
-import React from 'react';
-import serviceImg from '../../../images/icons/service1.png';
+import React, { useEffect, useState } from 'react';
 import ServiceCard from '../ServiceCard/ServiceCard';
 
 const OurServices = () => {
-  const serviceData = [
-    {
-      title: 'Web & Mobile Design',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, culpa enim mollitia nam tempore amet.',
-      id: '1',
-      image: serviceImg,
-    },
-    {
-      title: 'Web & Mobile Design',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, culpa enim mollitia nam tempore amet.',
-      id: '2',
-      image: serviceImg,
-    },
-    {
-      title: 'Web & Mobile Design',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, culpa enim mollitia nam tempore amet.',
-      id: '3',
-      image: serviceImg,
-    },
-  ];
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch('http://localhost:4000/getAllServices')
+      .then((res) => res.json())
+      .then((data) => {
+        if (isMounted) {
+          setServices(data);
+        }
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <div className="container">
@@ -37,8 +28,8 @@ const OurServices = () => {
           Provide Awesome <span style={{ color: '#9DC685' }}>Services</span>
         </h2>
         <div className="row my-5">
-          {serviceData.map((service) => (
-            <ServiceCard key={service.id} service={service}></ServiceCard>
+          {services.map((service) => (
+            <ServiceCard key={service._id} service={service}></ServiceCard>
           ))}
         </div>
       </div>
