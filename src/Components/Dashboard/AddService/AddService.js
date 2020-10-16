@@ -1,11 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 const AddService = () => {
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (data, e) => {
+    // console.log(data);
     const formData = new FormData();
     formData.append('file', data.file[0]);
     formData.append('name', data.name);
@@ -16,7 +17,10 @@ const AddService = () => {
       body: formData,
     })
       .then((response) => response.json())
-      .then((data) => {})
+      .then((data) => {
+        e.target.reset();
+        Swal.fire('Yes', 'New service added!', 'success');
+      })
       .catch((error) => {
         console.error(error);
       });
