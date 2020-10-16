@@ -5,7 +5,7 @@ const UserServiceCard = ({ service }) => {
     <div className="col-md-6">
       <div className="card m-3 p-3">
         <div className="card-body">
-          <div className="d-flex justify-content-between my-2 text-center">
+          <div className="d-flex justify-content-between my-2">
             {service.image ? (
               <img
                 className="w-25"
@@ -15,7 +15,12 @@ const UserServiceCard = ({ service }) => {
             ) : (
               <img className="w-25" src="" alt="none" />
             )}
-            <p>{service.status}</p>
+            <p
+              className="py-1 text-center"
+              style={{ textTransform: 'uppercase' }}
+            >
+              {service.status}
+            </p>
           </div>
           <p>{service.description}</p>
         </div>

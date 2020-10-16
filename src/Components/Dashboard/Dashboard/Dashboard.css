@@ -14,3 +14,8 @@
 .btn-option:focus {
   color: #96b883;
 }
+@media only screen and (min-width: 768px) {
+  .sidebar {
+    margin: 0 auto;
+  }
+}

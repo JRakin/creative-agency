@@ -23,6 +23,7 @@ const UserServiceList = () => {
       {!services.length ? (
         <div className="mx-auto">
           <img src={preLoader} alt="" />
+          <h6>Still waiting! May be you have no services.</h6>
         </div>
       ) : (
         services.map((service) => (

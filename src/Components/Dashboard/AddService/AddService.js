@@ -16,9 +16,7 @@ const AddService = () => {
       body: formData,
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error(error);
       });
@@ -26,19 +24,38 @@ const AddService = () => {
   return (
     <div className="order-form p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="d-flex">
-          <div className="form-group w-100 m-3">
-            <input
-              className="form-control"
-              name="name"
-              type="text"
-              placeholder="Service Name"
-              ref={register({ required: true })}
-            />
-            {errors.name && (
-              <span className="warning">Service name is required</span>
-            )}
-          </div>
+        <div className="form-group w-100 m-3">
+          <input
+            className="form-control"
+            name="name"
+            type="text"
+            placeholder="Service Name"
+            ref={register({ required: true })}
+          />
+          {errors.name && (
+            <span className="warning">Service name is required</span>
+          )}
+        </div>
+
+        <div className="form-group w-100 m-3">
+          <textarea
+            className="form-control description-text"
+            name="description"
+            ref={register({ required: true })}
+            placeholder="Description"
+            id=""
+            cols="40"
+            rows="5"
+          ></textarea>
+          {errors.description && (
+            <span className="warning">Description name is required</span>
+          )}
+        </div>
+        <div className="d-flex justify-content-between">
+          <button type="submit" className="btn btn-brand m-3">
+            {' '}
+            Create
+          </button>
           <div className="form-group w-100 m-3">
             <input
               name="file"
@@ -51,26 +68,6 @@ const AddService = () => {
             {errors.file && <span className="warning">Photo is required</span>}
           </div>
         </div>
-        <div className="d-flex">
-          <div className="form-group w-100 m-3">
-            <textarea
-              className="form-control description-text"
-              name="description"
-              ref={register({ required: true })}
-              placeholder="Description"
-              id=""
-              cols="40"
-              rows="5"
-            ></textarea>
-            {errors.description && (
-              <span className="warning">Description name is required</span>
-            )}
-          </div>
-        </div>
-        <button type="submit" className="btn btn-block btn-brand w-50 m-3">
-          {' '}
-          Create
-        </button>
       </form>
     </div>
   );

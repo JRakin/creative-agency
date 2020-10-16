@@ -24,7 +24,7 @@ const OurWorks = () => {
   return (
     <div className="container-slide my-5">
       <h2 className="text-center mb-5 text-white">
-        Here are some of <span style={{ color: '#9DC685' }}>our works</span>
+        Here Are Some Of <span style={{ color: '#9DC685' }}>Our Works</span>
       </h2>
       <div className="container">
         <Slider {...settings}>

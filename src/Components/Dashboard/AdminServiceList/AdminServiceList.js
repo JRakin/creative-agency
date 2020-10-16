@@ -6,33 +6,42 @@ const AdminServiceList = () => {
   const [allList, setAllList] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
     fetch('https://aqueous-reef-82491.herokuapp.com/getAllOrders')
       .then((res) => res.json())
       .then((data) => {
-        setAllList(data);
+        if (isMounted) {
+          setAllList(data);
+        }
       });
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleSelect = (e, id) => {
     const status = e.target.value;
-    fetch('http://localhost:4000/updateOrder' + id, {
+    const data = { status: status };
+    console.log(status);
+    fetch('https://aqueous-reef-82491.herokuapp.com/updateOrder/' + id, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: status,
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data) {
-          Swal.fire('OK', 'status updated successfully', 'success');
-        }
+        Swal.fire('Okay', 'Status updated successfully', 'success');
+        window.location.reload();
       });
+
+    e.preventDefault();
   };
 
   return (
-    <table className="table table-striped">
-      <thead>
+    <table className="table table-sm table-hover">
+      <thead className="thead-light">
         <tr className="text-center">
           <th>Name</th>
           <th>Email</th>

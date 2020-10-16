@@ -24,13 +24,21 @@ const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    const data = { email: user.email };
     fetch('https://aqueous-reef-82491.herokuapp.com/isAdmin', {
       method: 'POST',
-      body: JSON.stringify(user.email),
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((data) => {
-        setIsAdmin(data);
+        if (data.length) {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
       });
   }, [user.email]);
 
@@ -69,7 +77,7 @@ const Dashboard = () => {
             <Link className="py-4" to="/">
               <img className="w-75" src={Logo} alt="" />
             </Link>
-            {isAdmin ? (
+            {!isAdmin ? (
               <div className="py-5">
                 <p className="mb-0">
                   <button
@@ -158,9 +166,11 @@ const Dashboard = () => {
             )}
           </div>
           <div className="col-md-10 mt-5 show-activities">
-            {isAdmin
-              ? showActiveUser(selectActiveUser)
-              : showActiveAdmin(selectActiveAdmin)}
+            <div>
+              {!isAdmin
+                ? showActiveUser(selectActiveUser)
+                : showActiveAdmin(selectActiveAdmin)}
+            </div>
           </div>
         </div>
       </div>
