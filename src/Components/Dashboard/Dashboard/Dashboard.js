@@ -65,11 +65,11 @@ const Dashboard = () => {
     <div>
       <div className="container">
         <div className="row py-5">
-          <div className="col-md-3">
+          <div className="col-md-2">
             <Link className="py-4" to="/">
-              <img className="w-50" src={Logo} alt="" />
+              <img className="w-75" src={Logo} alt="" />
             </Link>
-            {!isAdmin ? (
+            {isAdmin ? (
               <div className="py-5">
                 <p className="mb-0">
                   <button
@@ -151,14 +151,14 @@ const Dashboard = () => {
                     }
                   >
                     <FontAwesomeIcon className="mr-2" icon={faUserPlus} />
-                    Make An Admin
+                    Make Admin
                   </button>
                 </p>
               </div>
             )}
           </div>
-          <div className="col-md-9 mt-5 show-activities">
-            {!isAdmin
+          <div className="col-md-10 mt-5 show-activities">
+            {isAdmin
               ? showActiveUser(selectActiveUser)
               : showActiveAdmin(selectActiveAdmin)}
           </div>

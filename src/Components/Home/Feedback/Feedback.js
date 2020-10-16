@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FeedbackCard from '../FeedbackCard/FeedbackCard';
+import preLoader from '../../../images/logos/loader.gif';
 
 const Feedback = () => {
   const [reviews, setReviews] = useState([]);
@@ -22,9 +23,18 @@ const Feedback = () => {
       </h2>
       <div className="container py-5">
         <div className="row">
-          {reviews.map((feedback) => (
-            <FeedbackCard key={feedback._id} feedback={feedback}></FeedbackCard>
-          ))}
+          {!reviews.length ? (
+            <div className="mx-auto">
+              <img src={preLoader} alt="" />
+            </div>
+          ) : (
+            reviews.map((feedback) => (
+              <FeedbackCard
+                key={feedback._id}
+                feedback={feedback}
+              ></FeedbackCard>
+            ))
+          )}
         </div>
       </div>
     </section>
