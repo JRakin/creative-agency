@@ -22,7 +22,7 @@ const AddService = () => {
         Swal.fire('Yes', 'New service added!', 'success');
       })
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
       });
   };
   return (

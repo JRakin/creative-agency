@@ -22,6 +22,8 @@ const Dashboard = () => {
   const user = jwt_decode(sessionStorage.getItem('token'));
 
   const [isAdmin, setIsAdmin] = useState(false);
+  const [selectActiveUser, setSelectActiveUser] = useState('');
+  const [selectActiveAdmin, setSelectActiveAdmin] = useState('');
 
   useEffect(() => {
     const data = { email: user.email };
@@ -36,14 +38,13 @@ const Dashboard = () => {
       .then((data) => {
         if (data.length) {
           setIsAdmin(true);
+          setSelectActiveAdmin('AllList');
         } else {
           setIsAdmin(false);
+          setSelectActiveUser('Order');
         }
       });
   }, [user.email]);
-
-  const [selectActiveUser, setSelectActiveUser] = useState('Order');
-  const [selectActiveAdmin, setSelectActiveAdmin] = useState('AllList');
 
   const handleOrder = () => {
     setSelectActiveUser('Order');

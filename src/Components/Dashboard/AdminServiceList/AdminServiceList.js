@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import preLoader from '../../../images/logos/loader.gif';
 import Swal from 'sweetalert2';
+import './AdminServiceList.css';
 
 const AdminServiceList = () => {
   const [allList, setAllList] = useState([]);
@@ -77,13 +78,25 @@ function renderTableData(list, handleSelect) {
         <select
           value={status}
           onChange={(e) => handleSelect(e, _id)}
-          className="p-2"
+          className={
+            status === 'pending'
+              ? 'pending-status'
+              : status === 'done'
+              ? 'done-status'
+              : 'onGoing-status'
+          }
           name="status"
           id="status"
         >
-          <option value="pending">Pending</option>
-          <option value="on going">On Going</option>
-          <option value="done">Done</option>
+          <option className="pending-status" value="pending">
+            Pending
+          </option>
+          <option className="onGoing-status" value="on going">
+            On Going
+          </option>
+          <option className="done-status" value="done">
+            Done
+          </option>
         </select>
       </td>
     </tr>

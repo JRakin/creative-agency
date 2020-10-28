@@ -38,8 +38,8 @@ const Navbar = () => {
   return (
     <div className="container">
       <nav className="navbar py-4 navbar-expand-lg navbar-light">
-        <Link to="/" className="navbar-brand">
-          <img className="w-25" src={Logo} alt="" />
+        <Link className="navbar-brand" to="/">
+          <img className="logo" src={Logo} alt="" />
         </Link>
         <button
           className="navbar-toggler"

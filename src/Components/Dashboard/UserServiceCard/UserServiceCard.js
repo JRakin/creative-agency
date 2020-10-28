@@ -15,12 +15,20 @@ const UserServiceCard = ({ service }) => {
             ) : (
               <img className="w-25" src="" alt="none" />
             )}
-            <p
-              className="py-1 text-center"
-              style={{ textTransform: 'uppercase' }}
-            >
-              {service.status}
-            </p>
+            <div>
+              <h6
+                className={
+                  service.status === 'pending'
+                    ? 'pending-status'
+                    : service.status === 'done'
+                    ? 'done-status'
+                    : 'onGoing-status'
+                }
+                style={{ textTransform: 'uppercase' }}
+              >
+                {service.status}
+              </h6>
+            </div>
           </div>
           <p>{service.description}</p>
         </div>

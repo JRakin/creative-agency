@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 
 const MakeAdmin = () => {
   const { register, handleSubmit, errors } = useForm();
+
   const onSubmit = (data, e) => {
     fetch('https://aqueous-reef-82491.herokuapp.com/makeAnAdmin', {
       method: 'POST',

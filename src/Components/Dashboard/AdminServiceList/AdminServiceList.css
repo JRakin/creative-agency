@@ -1,0 +1,15 @@
+.pending-status {
+  color: #dc3545;
+  background-color: rgb(248, 205, 205);
+  padding: 6px 8px;
+}
+.done-status {
+  color: #28a745;
+  background-color: rgb(213, 248, 213);
+  padding: 6px 8px;
+}
+.onGoing-status {
+  color: #ffc107;
+  background-color: rgb(253, 253, 235);
+  padding: 6px 8px;
+}

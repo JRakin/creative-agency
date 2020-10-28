@@ -76,6 +76,7 @@ const OrderForm = () => {
         <div className="form-group">
           <textarea
             className="form-control"
+            defaultValue={service.description}
             name="description"
             rows="5"
             cols="30"
