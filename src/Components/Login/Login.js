@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/analytics';
 import firebaseConfig from './firebase.config';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import Particles from 'react-particles-js';
@@ -11,6 +12,7 @@ import { UserContext } from '../../App';
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
 }
 
 const Login = () => {
@@ -30,6 +32,9 @@ const Login = () => {
         const signedInUser = { name: displayName, email, photoURL };
         setLoggedInUser(signedInUser);
         storeAuthToken();
+        firebase.analytics().logEvent('login', {
+          name: 'sign in',
+        });
       })
       .catch(function (error) {
         // console.log(error.message);
